@@ -1,0 +1,83 @@
+{% extends "Gen_user/h&f.html" %}
+{% block title %}PCC | Paper Configuration{% endblock %}
+{% block content %}
+
+<!--begin::Main-->
+						<div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+							<!--begin::Content wrapper-->
+							<div class="d-flex flex-column flex-column-fluid">
+								<!--begin::Content-->
+								<div id="kt_app_content" class="app-content">
+									<!--begin::Order details page-->
+									<div class="d-flex flex-column gap-7 gap-lg-10">
+										
+										
+										<!--begin::Tab content-->
+										<div class="tab-content">
+											
+											<!--begin::Tab pane-->
+											<div class="tab-pane fade show active" id="kt_ecommerce_sales_order_history" role="tab-panel">
+												<!--begin::Orders-->
+												<div class="d-flex flex-column gap-7 gap-lg-10">
+													<!--begin::Substrate Sizes-->
+													<div class="card card-flush py-4 flex-row-fluid">
+														<!--begin::Card header-->
+														<div class="card-header">
+															<div class="card-title">
+																<h2>Paper Configuration</h2>
+															</div>
+														</div>
+														<!--end::Card header-->
+														<!--begin::Card body-->
+														<div class="card-body pt-0">
+															<div class="table-responsive">
+																<!--begin::Table-->
+																<table class="table align-middle table-row-dashed fs-6 gy-5 mb-0">
+																	<!--begin::Table head-->
+																	<thead>
+																		<tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+																			<th class="min-w-100px">Sl No</th>
+																			<th class="min-w-175px">Paper</th>
+																			{% comment %} <th class="min-w-70px">Size</th> {% endcomment %}
+																			<th class="min-w-70px">Confi</th>
+																			<th class="min-w-70px">Status</th>
+																			
+																		</tr>
+																	</thead>
+																	<!--end::Table head-->
+																	<!--begin::Table body-->
+																	<tbody class="fw-semibold text-gray-600">
+                                                                        {% for c in conf %}
+																		<tr>
+																			<td>{{ forloop.counter }}</td>
+																			<td>{{ c.paper_type }}</td>
+																			<td>{{ c.paper_size.width }}mm X {{ c.paper_size.height }}mm X {{ c.paper_thickness.thickness }} GSM</td>
+																			{% comment %} <td><a href="#" data-bs-toggle="modal" data-bs-target="#kt_viewpaperconf"><i class="bi bi-eye text-info"></i></a></td> {% endcomment %}
+																			<td>
+																				<div class="badge badge-light-success">Active</div>
+																			</td>
+																		</tr>
+                                                                        {% endfor %}
+																	</tbody>
+																	<!--end::Table head-->
+																</table>
+																<!--end::Table-->
+															</div>
+														</div>
+														<!--end::Card body-->
+													</div>
+													<!--end::Substrate Sizes-->													
+												</div>
+												<!--end::Orders-->
+											</div>
+											<!--end::Tab pane-->
+										</div>
+										<!--end::Tab content-->
+									</div>
+									<!--end::Order details page-->
+								</div>
+								<!--end::Content-->
+							</div>
+							<!--end::Content wrapper-->
+
+{% endblock %}

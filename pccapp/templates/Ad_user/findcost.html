@@ -1,0 +1,171 @@
+{% extends "Ad_user/h&f.html" %}
+
+{% block title %}PCC | Find Cost{% endblock %}
+
+{% block content %}
+<div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+    <div class="d-flex flex-column flex-column-fluid">
+        <div id="kt_app_content" class="app-content">
+            <div class="row g-5 g-xxl-10">
+                <div class="col-xxl-8">
+                    {% if errors %}
+                            <div class="alert alert-danger">
+                                <ul>
+                                    {% for error in errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                    <form method="POST" action="{% url 'calculator' %}">
+                        {% csrf_token %}
+                        <div class="card-body pt-6">
+                            <div class="row">
+                                <div class="col-7">
+                                    <div class="form-floating mb-5">
+                                        <select class="form-select" id="productSelect" name="product" aria-label="Floating label select example">
+                                            <option value="" disabled selected>Select a Product</option>
+                                            {% for product in products %}
+                                                <option value="{{ product.id }}">{{ product.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <label for="productSelect">Product Name</label>
+                                    </div>
+                                    <div class="form-floating mb-5">
+                                        <select class="form-select" id="sizeSelect" name="product_size" aria-label="Floating label select example">
+                                            <option value="" disabled selected>Select Product Size</option>
+                                            {% for size in product_sizes %}
+                                                <option value="{{ size.id }}">{{ size.width }} x {{ size.height }} ({{ size.product.name }})</option>
+                                            {% endfor %}
+                                        </select>
+                                        <label for="sizeSelect">Product Size</label>
+                                    </div>
+                                    <div class="form-floating mb-5">
+                                        <input type="text" class="form-control" id="quantityInput" name="quantity" placeholder="Quantity"/>
+                                        <label for="quantityInput">Required Quantity</label>
+                                    </div>
+
+                                     <div class="d-flex align-items-center">
+                                        <div class="flex-grow-1">
+                                            <a href="#" class="text-gray-800 text-hover-primary fw-bold fs-6">Estimated</a>
+                                            <span class="text-muted fw-semibold d-block">A4</span>
+                                        </div>
+                                        <span class="badge badge-light-success fs-6 fw-bold">10 No's</span>
+                                    </div>
+
+                                </div>
+                                <div class="col-5">
+                                    <div class="card-rounded bg-primary bg-opacity-5 p-10 mb-5">
+                                        <h2 class="text-dark fw-bold mb-5">Paper Size Options</h2>
+                                        <div class="d-flex align-items-center">
+                                            <div class="py-5">
+                                                <div class="form-floating mb-5">
+                                                    <select class="form-select" id="paperSizeSelect" name="paper_size_option" aria-label="Floating label select example">
+                                                        <option value="" selected>Select a Paper Size</option>
+                                                        {% for size in paper_sizes %}
+                                                            <option value="{{ size.id }}">{{ size.name }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                    <label for="paperSizeSelect">Paper Size</label>
+                                                </div>
+                                                <div class="form-floating mb-5">
+                                                    <input type="text" class="form-control" id="paperQuantityInput" name="paper_quantity" placeholder="Quantity"/>
+                                                    <label for="paperQuantityInput">Quantity</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="row">
+                                <div class="col-7">
+                                    <div class="form-floating mb-5">
+                                        <select class="form-select" id="substrateSelect" name="substrate" aria-label="Floating label select example">
+                                            <option value="" disabled selected>Select Substrate</option>
+                                            {% for substrate in substrates %}
+                                                <option value="{{ substrate.id }}">{{ substrate.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <label for="substrateSelect">Substrate</label>
+                                    </div>
+                                    <div class="form-floating mb-5">
+                                        <select class="form-select" id="substrateSizeSelect" name="substrate_size" aria-label="Floating label select example">
+                                            <option value="" disabled selected>Select Substrate Size</option>
+                                            {% for size in substrate_sizes %}
+                                                <option value="{{ size.id }}">{{ size.width }} x {{ size.height }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <label for="substrateSizeSelect">Substrate Size</label>
+                                    </div>
+                                    <div class="form-floating mb-5">
+                                        <input type="text" class="form-control" id="substrateQuantityInput" name="substrate_quantity" placeholder="Quantity"/>
+                                        <label for="substrateQuantityInput">Quantity</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-end mt-4">
+                                <button type="submit" class="btn btn-primary">Find Cost</button>
+                            </div>
+                        </form>
+                       
+                        {% if cost_details %}
+                        <div class="row mt-4">
+                            <div class="col">
+                                <div class="table-responsive border-bottom mb-9">
+                                    <table class="table mb-3">
+                                        <thead>
+                                            <tr class="border-bottom fs-6 fw-bold text-muted">
+                                                <th class="min-w-175px pb-2">Description</th>
+                                                <th class="min-w-100px text-end pb-2">Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="fw-bold text-gray-700 fs-5 text-end">
+                                                <td class="d-flex align-items-center pt-6">
+                                                    <i class="fa fa-genderless text-danger fs-2 me-2"></i>Substrate Cost
+                                                </td>
+                                                <td class="pt-6 text-dark fw-bolder">QAR {{ cost_details.material_cost|floatformat:2 }}</td>
+                                            </tr>
+                                            <tr class="fw-bold text-gray-700 fs-5 text-end">
+                                                <td class="d-flex align-items-center">
+                                                    <i class="fa fa-genderless text-success fs-2 me-2"></i>Printing Cost
+                                                </td>
+                                                <td class="fs-5 text-dark fw-bolder">QAR {{ cost_details.printing_cost|floatformat:2 }}</td>
+                                            </tr>
+                                            <tr class="fw-bold text-gray-700 fs-5 text-end">
+                                                <td class="d-flex align-items-center">
+                                                    <i class="fa fa-genderless text-success fs-2 me-2"></i>Subtotal
+                                                </td>
+                                                <td class="fs-5 text-dark fw-bolder">QAR {{ cost_details.subtotal|floatformat:2 }}</td>
+                                            </tr>
+                                            <tr class="fw-bold text-gray-700 fs-5 text-end">
+                                                <td class="d-flex align-items-center">
+                                                    <i class="fa fa-genderless text-warning fs-2 me-2"></i>Cartridge 10%
+                                                </td>
+                                                <td class="fs-5 text-dark fw-bolder">QAR {{ cost_details.cartridge_cost|floatformat:2 }}</td>
+                                            </tr>
+                                            <tr class="fw-bold text-gray-700 fs-5 text-end">
+                                                <td class="d-flex align-items-center">
+                                                    <i class="fa fa-genderless text-warning fs-2 me-2"></i>Overhead 30%
+                                                </td>
+                                                <td class="fs-5 text-dark fw-bolder">QAR {{ cost_details.overhead_cost|floatformat:2 }}</td>
+                                            </tr>
+                                            <tr class="fw-bold text-gray-700 fs-5 text-end">
+                                                <td class="d-flex align-items-center">
+                                                    <i class="fa fa-genderless text-success fs-2 me-2"></i>Grand Total
+                                                </td>
+                                                <td class="fs-5 text-dark fw-bolder">QAR {{ cost_details.grand_total|floatformat:2 }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>  
+            </div>
+        </div>
+    </div>
+{% endblock %}

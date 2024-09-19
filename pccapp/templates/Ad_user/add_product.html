@@ -1,0 +1,44 @@
+{% extends "Ad_user/h&f.html" %}
+{% block title %}PCC | Add {% endblock %}
+
+{% block content %}
+
+    <form  method="post" action="">
+                        
+        {% csrf_token %}
+        <div>
+        <div style="display: flex; justify-content: center; align-items: center; height: 80vh; margin-left: 10vh; width:200%" >
+            <div style="max-width: 600px; width: 100%; padding: 20px; background: #f9f9f9; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                <form method="post" action="">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        {{form.as_p}}
+                        {% comment %} <label for="productName" class="form-label">Product Name</label>
+                        <input type="text" class="form-control" id="productName" name="name" value="{{ p.name }}" required> {% endcomment %}
+                    </div>
+                
+                    {% comment %} <div class="mb-3">
+                        <label for="costPerUnit" class="form-label">Cost Per Unit</label>
+                        <input type="number" step="0.01" class="form-control" id="costPerUnit" name="cost_per_unit" value="{{ p.cost_per_unit }}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="minQuantity" class="form-label">Min Quantity</label>
+                        <input type="number" step="0.01" class="form-control" id="minQuantity" name="min_quantity" value="{{ p.min_quantity }}" required>
+                    </div> {% endcomment %}
+                
+                    <div class="text-center pt-10">
+                        <button type="submit" class="btn btn-primary">
+                            <span class="indicator-label">Add</span>
+                            <span class="indicator-progress">Please wait...
+                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                            </span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+{% endblock %}

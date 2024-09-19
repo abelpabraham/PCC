@@ -1,0 +1,48 @@
+{% extends "Gen_user/h&f.html"%}
+{% block title %}PCC | Product Specification{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+
+                <div class="card-body">
+                    <form method="post" action="">
+                        {% csrf_token %}
+                        <input type="hidden" name="product_id" value="{{ p.id }}">
+
+                        <!-- Product Size Selection -->
+                        <div class="mb-3">
+                            <label for="product_size">Select Product Size:</label>
+                            {{ form.product_size}}
+                        </div>
+
+                        <!-- Paper Size Selection -->
+                        <div class="mb-3">
+                            <label for="paper_size">Select Paper Size:</label>
+                            {{ form.paper_size}}
+                        </div>
+
+                        <div class="text-center pt-3">
+                            <button type="button" class="btn btn-light me-3" onclick="window.history.back();">Cancel</button>
+                            <button type="submit" class="btn btn-primary">
+                                <span class="indicator-label">Calculate</span>
+                                <span class="indicator-progress">Please wait...
+                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                </span>
+                            </button>
+                        </div>
+                    </form>
+                    {% if products_per_sheet is not None %}
+                    <div class="mt-4">
+                        <h5>Results:</h5>
+                        <p>Number of products that can fit on the selected paper size: <strong>{{ products_per_sheet }}</strong></p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

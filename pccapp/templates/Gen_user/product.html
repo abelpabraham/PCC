@@ -1,0 +1,93 @@
+{% extends "Gen_user/h&f.html" %}
+{% block title %}PCC | Products {% endblock %}
+
+{% block content %}
+
+<!--begin::Main-->
+<div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+    <!--begin::Content wrapper-->
+    <div class="d-flex flex-column flex-column-fluid">
+        <!--begin::Content-->
+        <div id="kt_app_content" class="app-content">
+            <!--begin::Order details page-->
+            <div class="d-flex flex-column gap-7 gap-lg-10">
+                
+
+                <!--begin::Tab content-->
+                <div class="tab-content">
+                    <!--begin::Tab pane-->
+                    <div class="tab-pane fade show active" id="kt_ecommerce_sales_order_history" role="tab-panel">
+                        <!--begin::Orders-->
+                        <div class="d-flex flex-column gap-7 gap-lg-10">
+                            <!--begin::Substrate Sizes-->
+                            <div class="card card-flush py-4 flex-row-fluid">
+                                <!--begin::Card header-->
+                                <div class="card-header">
+                                    <div class="card-title">
+                                        <h2>Products Master</h2>
+                                    </div>
+                                </div>
+                                <!--end::Card header-->
+                                <!--begin::Card body-->
+                                <div class="card-body pt-0">
+                                    <div class="table-responsive">
+                                        <!--begin::Table-->
+                                        <table class="table align-middle table-row-dashed fs-6 gy-5 mb-0">
+                                            <!--begin::Table head-->
+                                            <thead>
+                                                <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                                                    <th class="min-w-100px">Sl No</th>
+                                                    <th class="min-w-175px">Product</th>
+                                                    <th class="min-w-70px">UoM</th>
+                                                    <th class="min-w-70px">Status</th>
+                                                    <th class="min-w-70px">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <!--end::Table head-->
+                                            <!--begin::Table body-->
+                                            <tbody class="fw-semibold text-gray-600">
+                                                {% for p in product %}
+                                                <tr>
+                                                    <td>{{ forloop.counter }}</td>
+                                                    <td>{{ p.name }}</td>
+                                                    <td>No's</td>
+                                                    <td>
+                                                        {% if p.status == 1 %}
+                                                        <div class="badge badge-light-success">Active</div>
+                                                        {% else %}
+                                                        <div class="badge badge-light-danger">InActive</div>
+                                                        {% endif %}
+                                                    </td>
+                                                    <td class="text-end">
+                                                        {% if p.id %}
+                                                        
+                                                            <div class="menu-item px-3">
+                                                                <a href="../product_size_and_paper_view/{{ p.id }}/" class="menu-link px-3">view</a>
+                                                            </div>                                                            
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                            <!--end::Table body-->
+                                        </table>
+                                        <!--end::Table-->
+                                    </div>
+                                </div>
+                                <!--end::Card body-->
+                            </div>
+                            <!--end::Substrate Sizes-->                                                  
+                        </div>
+                        <!--end::Orders-->
+                    </div>
+                    <!--end::Tab pane-->
+                </div>
+                <!--end::Tab content-->
+            </div>
+            <!--end::Order details page-->
+        </div>
+        <!--end::Content-->
+    </div>
+    <!--end::Content wrapper-->
+
+{% endblock %}
